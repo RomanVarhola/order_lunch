@@ -1,0 +1,19 @@
+%p#notice= notice
+%h3 Menu #{@menu.title}
+
+.row
+  .col-md-6.col-md-offset-3
+    .panel.panel-primary
+      .panel-heading= @menu.title
+      .panel-body
+        - if @menu.foods.present?
+          %h3 Foods
+          = render partial: 'table_foods'
+        - if @menu.drinks.present?
+          %h3 Drinks
+          = render partial: 'table_drinks'     
+    
+
+= link_to 'Edit', edit_menu_path(@menu)
+|
+= link_to 'Back', menus_path

@@ -1,0 +1,26 @@
+.row
+  .col-md-6.col-md-offset-3
+    = form_for drink do |f|
+      - if drink.errors.any?
+        .alert.alert-danger
+          %ul
+            - drink.errors.full_messages.each do |msg|
+              %li= msg
+      .panel.panel-primary
+        .panel-heading Fill fileds
+        .panel-body
+          .control-group
+            = f.label "Title"
+            .controls
+              = f.text_field :title, class: 'form-control'
+          .control-group
+            = f.label "Type"
+            .controls
+              = f.select :dtype, [['Cold water', :cold_water],['Hot water', :hot_water]]
+          .control-group
+            = f.label "Price ($)"
+            .controls
+              = f.number_field :price, min: 0, step: 0.10, class: 'form-control'
+      .panel.panel-primary
+        .panel-body
+          = f.submit 'Save', class: "btn btn-lg btn-teal"

@@ -1,0 +1,30 @@
+development:
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  database: lunch_development
+  pool:     5
+  username: postgres
+  password: 'password'
+  template: template0
+
+  
+test:
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  database: lunch_test
+  pool:     5
+  username: postgres
+  password: 'password'
+  template: template0
+
+production:
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  database: lunch_production
+  pool:     5
+  username: postgres
+  password: 'password'
+  template: template0

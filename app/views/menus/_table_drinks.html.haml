@@ -1,0 +1,14 @@
+%table.table.table-bordered
+  %thead
+    %tr
+      %th #
+      %th Title
+      %th Type
+      %th Price
+  %tbody
+    - @menu.drinks.each do |drink|
+      %tr
+        %td= drink.id
+        %td= drink.title
+        %td= drink.type_to_s(drink.dtype)
+        %td= "#{drink.price} $"

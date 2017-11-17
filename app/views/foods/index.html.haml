@@ -1,0 +1,26 @@
+- if notice
+  .alert.alert-success
+    %p#notice= notice
+
+%h1 Foods
+%table.table.table-bordered
+  %thead
+    %tr.info
+      %th #
+      %th Title
+      %th Type
+      %th Price
+      %th{colspan: "2"}
+  %tbody
+    - @foods.each do |food|
+      %tr
+        %td= food.id
+        %td= food.title
+        %td= food.type_to_s(food.ftype)
+        %td= "#{food.price} $"
+        %td= link_to 'Edit', edit_food_path(food)
+        %td= link_to 'Destroy', food, method: :delete, data: { confirm: 'Are you sure?' }
+%br
+= link_to 'New Food', new_food_path
+%br
+= link_to 'Back', root_path

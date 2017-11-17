@@ -1,0 +1,23 @@
+%p#notice= notice
+%h1 Drinks
+%table.table.table-bordered
+  %thead
+    %tr.info
+      %th #
+      %th Title
+      %th Type
+      %th Price
+      %th{colspan: "2"}
+  %tbody
+    - @drinks.each do |drink|
+      %tr
+        %td= drink.id
+        %td= drink.title
+        %td= drink.type_to_s(drink.dtype) 
+        %td= "#{drink.price} $"
+        %td= link_to 'Edit', edit_drink_path(drink)
+        %td= link_to 'Destroy', drink, method: :delete, data: { confirm: 'Are you sure?' }
+%br
+= link_to 'New Drink', new_drink_path
+%br
+= link_to 'Back', root_path

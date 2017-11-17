@@ -1,0 +1,34 @@
+.row
+  .col-md-6.col-md-offset-3
+    = form_for menu, html: { multipart: true } do |f|
+      - if menu.errors.any?
+        .alert.alert-danger
+          %ul
+            - menu.errors.full_messages.each do |msg|
+              %li= msg
+      .panel.panel-primary
+        .panel-heading Fill fileds
+        .panel-body
+          .control-group
+            = f.label "Title"
+            .controls
+              = f.text_field :title, class: 'form-control'
+          .control-group
+            = f.label "Date"
+            .controls
+              = f.date_field :date, value: DateTime.now.to_date, class: 'form-control'
+          .control-group
+            = f.label "Foods"
+            .controls
+              = select_tag 'food_ids[]', options_for_select(Food.all.collect{|f| [f.title, f.id]}, @menu.foods.pluck(:id)), { include_blank: true, multiple: true }
+          .control-group
+            = f.label "Drinks"
+            .controls
+              = select_tag 'drink_ids[]', options_for_select(Drink.all.collect{|f| [f.title, f.id]}, @menu.drinks.pluck(:id)), { include_blank: true, multiple: true }
+          .control-group
+            = f.label "Avatar"
+            .controls
+              = f.file_field :avatar, class: 'form-control'
+      .panel.panel-primary
+        .panel-body
+          = f.submit 'Save', class: "btn btn-lg btn-teal"

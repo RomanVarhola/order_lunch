@@ -1,0 +1,35 @@
+- if notice
+  .alert.alert-success
+    %p#notice= notice
+
+-if current_user.admin?
+  = link_to 'Foods', foods_path, class: 'btn btn-primary'
+  = link_to 'Drinks', drinks_path, class: 'btn btn-primary'
+  = link_to 'Menus', menus_path, class: 'btn btn-primary'
+  = link_to 'Users', users_path, class: 'btn btn-primary'
+
+- if @menu.present?
+  %h1.text-center Menu for today
+  .row
+    .col-md-6.col-md-offset-3
+      = form_for @order do |f|
+        - if @order.errors.any?
+          .alert.alert-danger
+            %ul
+              - @order.errors.full_messages.each do |msg|
+                %li= msg
+        = f.hidden_field :date, value: DateTime.now.to_date
+        .panel.panel-primary
+          .panel-heading= @menu.title
+          .panel-body
+            %div.text-center
+              = image_tag(@menu.avatar.url(:medium))
+            - if @menu.foods.present?
+              %h3 Foods
+              = render partial: 'table_foods', f:f
+            - if @menu.drinks.present?
+              %h3 Drinks
+              = render partial: 'table_drinks', f:f
+        .panel.panel-primary
+          .panel-body.text-center
+            = f.submit 'Order', class: 'btn btn-lg btn-primary'
