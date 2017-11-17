@@ -1,17 +1,20 @@
 class Order < ApplicationRecord
-  has_many :item_orders, dependent: :destroy
-  has_many :foods, through: :item_orders, source: :item, source_type: 'Food'
-  has_many :drinks, through: :item_orders, source: :item, source_type: 'Drink'
+  has_one :order_food, dependent: :destroy
+  has_one :order_drink, dependent: :destroy
+  has_one :food, through: :order_food
+  has_one :drink, through: :order_drink
 
   belongs_to :user
 
+  scope :today_order, -> { where(date: DateTime.now.to_date) }
+
   validates :date, presence: true, uniqueness: true
 
-  def add_food(foods)
-    self.foods = foods
+  def add_food(food)
+    self.food = food
   end
 
-  def add_drink(drinks)
-    self.drinks = drinks
+  def add_drink(drink)
+    self.drink = drink
   end
 end

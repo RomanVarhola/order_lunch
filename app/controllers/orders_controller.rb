@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.save
         add_food_or_drink_to_order
-        binding.pry
+        add_total_price_to_order
         format.html { redirect_to root_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -36,6 +36,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.update(order_params)
         add_food_or_drink_to_order
+        add_total_price_to_order
         format.html { redirect_to root_path, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
@@ -60,13 +61,18 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:date)
+      params.require(:order).permit(:date, :total_price)
     end
 
     def add_food_or_drink_to_order
-      @foods = Food.where(id: params[:food_ids])
-      @drinks = Drink.where(id: params[:drink_ids])
-      @order.add_food(@foods) if @foods.present?
-      @order.add_drink(@drinks) if @drinks.present?
+      @food = Food.find_by(id: params[:food_ids])
+      @drink = Drink.find_by(id: params[:drink_ids])
+      @order.add_food(@food) if @food.present?
+      @order.add_drink(@drink) if @drink.present?
+    end
+
+    def add_total_price_to_order
+      @order.total_price = CalculateTotalPrice.new(@order).call
+      @order.save
     end
 end

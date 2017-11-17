@@ -18,7 +18,7 @@
         %td= menu.id
         %td= menu.title
         %td Foods: #{menu.foods.pluck(:title).join(', ')} | Drinks: #{menu.drinks.pluck(:title).join(', ')}
-        %td=image_tag(menu.avatar.url(:thumb))
+        %td=image_tag(menu.avatar.url(:thumb)) if menu.avatar.present? 
         %td= menu.date
         %td= link_to 'Show', menu
         %td= link_to 'Edit', edit_menu_path(menu)

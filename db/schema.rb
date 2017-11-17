@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171116215856) do
+ActiveRecord::Schema.define(version: 20171117144754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,16 +41,6 @@ ActiveRecord::Schema.define(version: 20171116215856) do
     t.index ["menu_id"], name: "index_item_menus_on_menu_id"
   end
 
-  create_table "item_orders", force: :cascade do |t|
-    t.string "item_type"
-    t.bigint "item_id"
-    t.bigint "order_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["item_type", "item_id"], name: "index_item_orders_on_item_type_and_item_id"
-    t.index ["order_id"], name: "index_item_orders_on_order_id"
-  end
-
   create_table "menus", force: :cascade do |t|
     t.string "title"
     t.date "date"
@@ -62,11 +52,30 @@ ActiveRecord::Schema.define(version: 20171116215856) do
     t.datetime "avatar_updated_at"
   end
 
+  create_table "order_drinks", force: :cascade do |t|
+    t.bigint "drink_id"
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drink_id"], name: "index_order_drinks_on_drink_id"
+    t.index ["order_id"], name: "index_order_drinks_on_order_id"
+  end
+
+  create_table "order_foods", force: :cascade do |t|
+    t.bigint "food_id"
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_order_foods_on_food_id"
+    t.index ["order_id"], name: "index_order_foods_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.decimal "total_price"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

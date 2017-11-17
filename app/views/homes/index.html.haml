@@ -30,6 +30,7 @@
             - if @menu.drinks.present?
               %h3 Drinks
               = render partial: 'table_drinks', f:f
-        .panel.panel-primary
-          .panel-body.text-center
-            = f.submit 'Order', class: 'btn btn-lg btn-primary'
+        - unless current_user.orders.today_order.present?
+          .panel.panel-primary
+            .panel-body.text-center
+              = f.submit 'Order', class: 'btn btn-lg btn-primary' 
