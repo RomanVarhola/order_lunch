@@ -1,46 +1,22 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:destroy]
 
   def index
     @orders = Order.all
   end
 
-  def show
-  end
-
-  def new
-    @order = Order.new
-  end
-
-  def edit
-  end
-
   def create
     @order = current_user.orders.build(order_params)
-    
+    add_food_or_drink_to_order
+
     respond_to do |format|
       if @order.save
-        add_food_or_drink_to_order
         add_total_price_to_order
         format.html { redirect_to root_path, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
-        format.html { redirect_to request.referer }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @order.update(order_params)
-        add_food_or_drink_to_order
-        add_total_price_to_order
-        format.html { redirect_to root_path, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit }
+        format.html { redirect_to root_path, notice: "#{@order.errors.first}"  }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end

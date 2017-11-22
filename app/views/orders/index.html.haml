@@ -1,0 +1,27 @@
+- if notice
+  .alert.alert-success
+    %p#notice= notice
+
+= link_to 'Send orders', api_v1_orders_path, class: 'btn btn-primary'
+
+%h1 Orders
+%table.table.table-bordered
+  %thead
+    %tr
+      %th #
+      %th Full name
+      %th Food
+      %th Drink
+      %th Total price
+      %th Date
+  %tbody
+    - @orders.each do |order|
+      %tr
+        %td= order.id
+        %td= link_to "#{order.user.full_name}", user_path(order.user)
+        %td= "#{order.food.title} #{order.food.price} $"
+        %td= "#{order.drink.title} #{order.drink.price} $"
+        %td= "#{order.total_price} $"
+        %td= order.date
+
+= link_to 'Back', root_path

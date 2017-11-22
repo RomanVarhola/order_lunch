@@ -5,8 +5,9 @@
 -if current_user.admin?
   = link_to 'Foods', foods_path, class: 'btn btn-primary'
   = link_to 'Drinks', drinks_path, class: 'btn btn-primary'
-  = link_to 'Menus', menus_path, class: 'btn btn-primary'
   = link_to 'Users', users_path, class: 'btn btn-primary'
+  = link_to 'Orders', orders_path, class: 'btn btn-primary'
+= link_to 'Menus', menus_path, class: 'btn btn-primary'
 
 - if @menu.present?
   %h1.text-center Menu for today
@@ -23,7 +24,7 @@
           .panel-heading= @menu.title
           .panel-body
             %div.text-center
-              = image_tag(@menu.avatar.url(:medium))
+              = image_tag(@menu.avatar.url(:medium)) if @menu.avatar.present?
             - if @menu.foods.present?
               %h3 Foods
               = render partial: 'table_foods', f:f

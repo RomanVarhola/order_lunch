@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @orders = current_user.orders
+    @orders = @user.orders.includes(:food, :drink)
   end
   
   def edit
@@ -43,6 +43,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :city)
+    params.require(:user).permit(:first_name, :last_name)
   end
 end

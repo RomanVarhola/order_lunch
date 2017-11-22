@@ -5,10 +5,11 @@
 %h1 Menus
 %table.table.table-bordered
   %thead
-    %tr.info
+    %tr
       %th #
       %th Title
-      %th Food_ids and drink_ids
+      %th Foods
+      %th Drinks
       %th Avatar
       %th Date
       %th{:colspan => "3"}
@@ -17,11 +18,14 @@
       %tr
         %td= menu.id
         %td= menu.title
-        %td Foods: #{menu.foods.pluck(:title).join(', ')} | Drinks: #{menu.drinks.pluck(:title).join(', ')}
+        %td= menu.foods.pluck(:title).join(', ')
+        %td= menu.drinks.pluck(:title).join(', ')
         %td=image_tag(menu.avatar.url(:thumb)) if menu.avatar.present? 
         %td= menu.date
         %td= link_to 'Show', menu
-        %td= link_to 'Edit', edit_menu_path(menu)
-        %td= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' }
+        - if current_user.admin?
+          %td= link_to 'Edit', edit_menu_path(menu)
+          %td= link_to 'Destroy', menu, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
-= link_to 'New Menu', new_menu_path
+- if current_user.admin?
+  = link_to 'New Menu', new_menu_path

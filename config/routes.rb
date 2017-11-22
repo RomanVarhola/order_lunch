@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
-  resources :order_drinks
-  resources :order_foods
   root to: 'homes#index'
 
   devise_for :users
-  resources :orders
+  resources :orders, only: [:index, :create, :destroy]
   resources :drinks
   resources :foods
   resources :menus
   resources :users
   resources :homes, only: :index
+
+  namespace :api do
+    namespace :v1 do
+      resources :orders, only: [:index]
+    end
+  end
 end

@@ -13,7 +13,10 @@
     = @user.role
 = link_to 'Edit', edit_user_path(@user)
 |
-= link_to 'Back', users_path
+- if current_user.admin?
+  = link_to 'Back', users_path
+- else
+  = link_to 'Back', root_path
 
 -if @orders.present?
   %h1 My orders
@@ -28,7 +31,6 @@
         %th{:colspan => "3"}
     %tbody
       - @orders.each do |order|
-        /- binding.pry
         %tr
           %td= order.id
           %td= "#{order.food.title} #{order.food.price} $" if order.food.present?

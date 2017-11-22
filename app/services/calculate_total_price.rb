@@ -8,13 +8,7 @@ class CalculateTotalPrice
   def call
     food = order.food
     drink = order.drink
-    if food.present? && drink.present?
-      price = food.price + drink.price
-    elsif food.present?
-      price = food.price
-    elsif
-      price = drink.price
-    end
+    price = food.price + drink.price
     price
   end
 end

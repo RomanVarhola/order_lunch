@@ -4,7 +4,7 @@ RSpec.describe HomesController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "/home").to route_to("homes#index")
+      expect(:get => "/homes").to route_to("homes#index")
     end
 
   end
