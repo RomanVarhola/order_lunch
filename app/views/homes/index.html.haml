@@ -9,7 +9,7 @@
   = link_to 'Orders', orders_path, class: 'btn btn-primary'
 = link_to 'Menus', menus_path, class: 'btn btn-primary'
 
-- if @menu.present?
+- if @menu.present? && @menu.foods.present? && @menu.drinks.present?
   %h1.text-center Menu for today
   .row
     .col-md-6.col-md-offset-3

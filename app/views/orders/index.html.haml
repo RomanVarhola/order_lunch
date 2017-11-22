@@ -24,4 +24,7 @@
         %td= "#{order.total_price} $"
         %td= order.date
 
+%b.pull-right.total-price
+  Total price is: #{@total_price} $
+
 = link_to 'Back', root_path

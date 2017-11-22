@@ -6,12 +6,12 @@ class Food < ApplicationRecord
   validates :ftype, presence: true
   validates :price, presence: true
 
-  enum ftype: [:cold_food, :hot_food]
+  enum ftype: [:first_course, :main_course]
 
   def type_to_s(type)
     case type.to_sym
-    when :cold_food then 'Cold food'
-    when :hot_food then 'Hot food'
+    when :first_course then 'First course'
+    when :main_course then 'Main course'
     else ""
     end
   end

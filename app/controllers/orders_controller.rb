@@ -3,7 +3,8 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:destroy]
 
   def index
-    @orders = Order.all
+    @orders = Order.today_order
+    @total_price = CalculateTotalPriceForOrders.new(@orders).call
   end
 
   def create

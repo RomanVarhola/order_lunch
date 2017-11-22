@@ -6,12 +6,12 @@ class Drink < ApplicationRecord
   validates :dtype, presence: true
   validates :price, presence: true
 
-  enum dtype: [:cold_water, :hot_water]
+  enum dtype: [:cold_drink, :hot_drink]
 
   def type_to_s(type)
     case type.to_sym
-    when :cold_water then 'Cold water'
-    when :hot_water then 'Hot water'
+    when :cold_drink then 'Cold drink'
+    when :hot_drink then 'Hot drink'
     else ""
     end
   end
